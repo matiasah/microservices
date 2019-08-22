@@ -1,0 +1,109 @@
+version: '3.7'
+
+services:
+  database:
+    image: mysql:5.7
+    restart: on-failure
+    environment:
+      - "MYSQL_DATABASE=microservices"
+      - "MYSQL_USER=hg7fXnWOjgUEZFcv"
+      - "MYSQL_PASSWORD=duV2SyMmFBmMmX05"
+      - "MYSQL_ROOT_PASSWORD=3MOUC4318Lfj2PSe"
+    expose:
+      - '3306'
+    networks:
+      backend:
+        aliases:
+          - mysql
+  
+  phpMyAdmin_dev:
+    image: phpmyadmin/phpmyadmin:4.8
+    ports:
+      - '8081:80'
+    environment:
+      - "MYSQL_ROOT_PASSWORD=3MOUC4318Lfj2PSe"
+      - "PMA_USER=hg7fXnWOjgUEZFcv"
+      - "PMA_PASSWORD=duV2SyMmFBmMmX05"
+      - "PMA_HOST=mysql"
+      - "PMA_PORT=3306"
+    networks:
+      backend:
+        aliases:
+          - phpmyadmin
+
+  eureka-server:
+    build:
+      context: eureka-server
+      dockerfile: Dockerfile
+    restart: on-failure
+    working_dir: /usr/src/backend
+    volumes:
+      - ./eureka-server/:/usr/src/backend
+    expose:
+      - '8082'
+    ports:
+      - '8082:8082'
+    networks:
+      backend:
+        aliases:
+          - eureka-server
+    command: mvn spring-boot:run
+  
+  config-server:
+    build:
+      context: config-server
+      dockerfile: Dockerfile
+    restart: on-failure
+    working_dir: /usr/src/backend
+    volumes:
+      - ./config-server/:/usr/src/backend
+    expose:
+      - '8081'
+    networks:
+      backend:
+        aliases:
+          - config-server
+    depends_on:
+      - eureka-server
+    command: mvn spring-boot:run
+  
+  zuul-server:
+    build:
+      context: zuul-server
+      dockerfile: Dockerfile
+    restart: on-failure
+    working_dir: /usr/src/backend
+    volumes:
+      - ./zuul-server/:/usr/src/backend
+    expose:
+      - '8080'
+    ports:
+      - '8080:8080'
+    networks:
+      backend:
+        aliases:
+          - zuul-server
+    depends_on:
+      - eureka-server
+      - config-server
+    command: mvn spring-boot:run
+  
+  users-service:
+    build:
+      context: users-service
+      dockerfile: Dockerfile
+    restart: on-failure
+    working_dir: /usr/src/backend
+    volumes:
+      - ./users-service/:/usr/src/backend
+    networks:
+      backend:
+        aliases:
+          - users-service
+    depends_on:
+      - eureka-server
+      - config-server
+    command: mvn spring-boot:run
+
+networks:
+  backend:

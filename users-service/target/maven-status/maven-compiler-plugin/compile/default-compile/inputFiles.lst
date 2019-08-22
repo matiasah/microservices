@@ -1,0 +1,4 @@
+/usr/src/backend/src/main/java/cl/ufro/users/service/controller/UserController.java
+/usr/src/backend/src/main/java/cl/ufro/users/service/model/User.java
+/usr/src/backend/src/main/java/cl/ufro/users/service/Application.java
+/usr/src/backend/src/main/java/cl/ufro/users/service/repository/UserRepository.java
