@@ -1,2 +1,2 @@
-/usr/src/backend/src/main/java/cl/ufro/gateway/server/Application.java
-/usr/src/backend/src/main/java/cl/ufro/gateway/server/config/SecurityConfig.java
+/usr/src/backend/src/main/java/cl/ufro/zuul/server/Application.java
+/usr/src/backend/src/main/java/cl/ufro/zuul/server/config/SecurityConfig.java

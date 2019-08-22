@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cl.ufro.configuration.server;
+package cl.ufro.zuul.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
  *
  * @author matia
  */
 @SpringBootApplication
-@EnableConfigServer
+@EnableZuulProxy
 @EnableDiscoveryClient
 public class Application {
     
