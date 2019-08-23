@@ -59,6 +59,8 @@ services:
       - ./config-server/:/usr/src/backend
     expose:
       - '8081'
+    ports:
+      - '8081'
     networks:
       backend:
         aliases:
