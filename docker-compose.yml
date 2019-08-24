@@ -67,7 +67,7 @@ services:
           - config-server
     depends_on:
       - eureka-server
-    command: mvn spring-boot:run
+    command: /bin/sh -c "sleep 10 && mvn spring-boot:run && exit 1"
   
   zuul-server:
     build:
@@ -88,7 +88,7 @@ services:
     depends_on:
       - eureka-server
       - config-server
-    command: mvn spring-boot:run
+    command: /bin/sh -c "sleep 40 && mvn spring-boot:run && exit 1"
   
   users-service:
     build:
@@ -105,7 +105,7 @@ services:
     depends_on:
       - eureka-server
       - config-server
-    command: mvn spring-boot:run
+    command: /bin/sh -c "sleep 40 && mvn spring-boot:run && exit 1"
 
 networks:
   backend:
