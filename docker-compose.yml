@@ -39,8 +39,6 @@ services:
     working_dir: /usr/src/backend
     volumes:
       - ./eureka-server/:/usr/src/backend
-    expose:
-      - '8082'
     ports:
       - '8082:8082'
     networks:
@@ -57,10 +55,6 @@ services:
     working_dir: /usr/src/backend
     volumes:
       - ./config-server/:/usr/src/backend
-    expose:
-      - '8081'
-    ports:
-      - '8081'
     networks:
       backend:
         aliases:
@@ -77,8 +71,6 @@ services:
     working_dir: /usr/src/backend
     volumes:
       - ./zuul-server/:/usr/src/backend
-    expose:
-      - '8080'
     ports:
       - '8080:8080'
     networks:
