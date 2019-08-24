@@ -15,6 +15,8 @@ services:
       backend:
         aliases:
           - mysql
+    volumes:
+      - ./data/:/var/lib/mysql
   
   phpMyAdmin_dev:
     image: phpmyadmin/phpmyadmin:4.8
@@ -62,6 +64,23 @@ services:
     depends_on:
       - eureka-server
     command: /bin/sh -c "sleep 10 && mvn spring-boot:run && exit 1"
+  
+  auth-server:
+    build:
+      context: auth-server
+      dockerfile: Dockerfile
+    restart: on-failure
+    working_dir: /usr/src/backend
+    volumes:
+      - ./auth-server/:/usr/src/backend
+    networks:
+      backend:
+        aliases:
+          - auth-server
+    depends_on:
+      - eureka-server
+      - config-server
+    command: /bin/sh -c "sleep 40 && mvn spring-boot:run && exit 1"
   
   zuul-server:
     build:
