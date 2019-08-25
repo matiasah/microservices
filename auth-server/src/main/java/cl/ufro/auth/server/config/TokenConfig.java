@@ -5,10 +5,16 @@
  */
 package cl.ufro.auth.server.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
@@ -26,7 +32,7 @@ public class TokenConfig {
     
     @Value("${security.jwt.secret}")
     private String SECRET;
-    
+
     @Bean
     public JwtAccessTokenConverter accessTokenConverter(UserAuthenticationConverter userAuthenticationConverter) {
         // Crear access token converter con UserAuthenticationConverter
@@ -40,12 +46,15 @@ public class TokenConfig {
 
         return converter;
     }
-    
+
     @Bean
     public TokenStore tokenStore(JwtAccessTokenConverter converter) {
-        return new JwtTokenStore(converter);
+        // Jwt token store
+        JwtTokenStore tokenStore = new JwtTokenStore(converter);
+
+        return tokenStore;
     }
-    
+
     @Bean
     public UserAuthenticationConverter userAuthenticationConverter(UserDetailsService userDetailsService) {
         DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
@@ -53,13 +62,23 @@ public class TokenConfig {
 
         return userAuthenticationConverter;
     }
-    
+
     @Bean
     public DefaultTokenServices tokenServices(TokenStore tokenStore) {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore);
         defaultTokenServices.setSupportRefreshToken(true);
+
         return defaultTokenServices;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+
+        return new ProviderManager(Arrays.asList(authProvider));
     }
     
 }
