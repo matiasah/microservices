@@ -16,7 +16,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
@@ -49,10 +48,7 @@ public class TokenConfig {
 
     @Bean
     public TokenStore tokenStore(JwtAccessTokenConverter converter) {
-        // Jwt token store
-        JwtTokenStore tokenStore = new JwtTokenStore(converter);
-
-        return tokenStore;
+        return new JwtTokenStore(converter);
     }
 
     @Bean
@@ -61,15 +57,6 @@ public class TokenConfig {
         userAuthenticationConverter.setUserDetailsService(userDetailsService);
 
         return userAuthenticationConverter;
-    }
-
-    @Bean
-    public DefaultTokenServices tokenServices(TokenStore tokenStore) {
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore);
-        defaultTokenServices.setSupportRefreshToken(true);
-
-        return defaultTokenServices;
     }
 
     @Bean
