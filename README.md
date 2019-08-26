@@ -1,14 +1,12 @@
 # Spring Cloud Netflix Microservices + Spring Security OAuth2
-## Zuul server
-http://localhost:8080/
-## Configuration server
-http://localhost:8081/
-## Eureka server
-http://localhost:8082/
-## Users service
-http://localhost:8083/
-## OAuth2 server
-http://localhost:8084/
+## Applications
+| Service              | Port |
+| -------------------- | ---- |
+| Zuul                 | 8080 |
+| Configuration        | 8081 |
+| Eureka               | 8082 |
+| OAuth2 Authorization | 8084 |
+| Users microservice   | 8083 |
 
 ## OAuth2 Authorization
 ### Request Authorization
