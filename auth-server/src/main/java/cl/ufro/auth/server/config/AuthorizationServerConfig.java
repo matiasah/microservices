@@ -28,9 +28,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Value("${security.oauth2.resource.id}")
-    private String resourceId;
-
     @Value("${security.oauth2.access_token.validity_period}")
     private int accessTokenValiditySeconds;
 
@@ -63,9 +60,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer configurer) {
-        configurer
-                .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+        configurer.checkTokenAccess("permitAll()");
     }
 
     @Override
