@@ -80,6 +80,7 @@ services:
     depends_on:
       - eureka-server
       - config-server
+      - database
     command: /bin/sh -c "mvn spring-boot:run && exit 1"
   
   zuul-server:
