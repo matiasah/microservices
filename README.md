@@ -1,4 +1,4 @@
-# Microservices
+# Spring Cloud Netflix Microservices + Spring Security OAuth2
 ## Zuul server
 http://localhost:8080/
 ## Configuration server
@@ -20,7 +20,6 @@ Authorization: Basic YW5kcm9pZC1jbGllbnQ6YW5kcm9pZC1zZWNyZXQ=
 User-Agent: PostmanRuntime/7.15.2
 Accept: */*
 Cache-Control: no-cache
-Postman-Token: da3381af-61cd-43be-92eb-cf09be8c36e9,1a9a143d-d471-4c59-bdb0-3ab0fd702af5
 Host: localhost:8080
 Accept-Encoding: gzip, deflate
 Content-Length: 71
@@ -37,7 +36,6 @@ Host: localhost:8080
 User-Agent: PostmanRuntime/7.15.2
 Accept: */*
 Cache-Control: no-cache
-Postman-Token: 4b41fd88-cf72-4765-902c-5e4d55d8c911,79676448-1036-46e5-9373-8a26586032bb
 Host: localhost:8080
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
