@@ -37,7 +37,7 @@ services:
     build:
       context: eureka-server
       dockerfile: Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
       - ./eureka-server/:/usr/src/backend
@@ -53,7 +53,7 @@ services:
     build:
       context: config-server
       dockerfile: Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
       - ./config-server/:/usr/src/backend
@@ -69,7 +69,7 @@ services:
     build:
       context: auth-server
       dockerfile: Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
       - ./auth-server/:/usr/src/backend
@@ -87,7 +87,7 @@ services:
     build:
       context: zuul-server
       dockerfile: Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
       - ./zuul-server/:/usr/src/backend
@@ -106,7 +106,7 @@ services:
     build:
       context: users-service
       dockerfile: Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
       - ./users-service/:/usr/src/backend
